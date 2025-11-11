@@ -1,0 +1,55 @@
+一、测试本地windows上ollama的方法
+    参考config_teach1.json配置文件：
+
+    “ssh”字段里的local_mode要设置为true，其他的随便设置，为了方便，hostname一般设置成127.0.0.1
+    "prompts"字段是用于提问的问题或其他prompt
+    “test”字段里，每一个test就是一个框架模型。每一个test里，name随便起，“model”字段必须和模型名字相同，“port”需要是你自己配置
+    的ollama的端口，local_mode也要是true
+    其他的参数根据需要设置，也可以不变，设置完后自己的配置文件就弄好了，假设名字是your_config.json
+
+    设置完之后，在run_tests.py工作目录下（终端）运行“python run_tests.py --config your_config.json”命令，即可启动测试
+
+
+二、通过ssh连接wsl测试wsl上vllm的方法
+    参考config_teach2.json配置文件：
+
+    "ssh": {
+        "local_mode": false,
+        "hostname": "xx.xx.xx.xx",你的wsl上的子系统的对应端口，可以用“hostname -I”命令在对应子系统（如ubuntu）中运行获得
+        "username": "username",你的子系统的用户名称，即"username@xxxxxxx:~$"中的username
+        "password": "password",你的用户密码
+        "key_path": null,
+        "port": 22，这里就设为22不变
+    },
+    "prompts": [
+        随便写问题
+    ],
+    "max_tokens": 256,，可改
+    "result_dir": "results",，可改
+    "tests": [
+        {
+        "name": "wsl-vllm-deepseek-r1:1.5b",自己设置名字
+        "backend": "vllm",
+        "streaming": true,
+        "repeat": 3,
+        "backend_config": {
+            "model_path": "/mnt/e/vllm_models/DeepSeek-R1-Distill-Qwen-1.5B",这里是你自己的模型路径，如果下载在windows上的，
+            那就像我这样用mnt挂载，在子系统里就直接使用路径
+            "port": 8001,自己设置的端口
+            "wsl-venv": false,你的vllm如果是在隔离环境里安装的，这个就要设置为true（也就是这样的环境：(venvname) yourname@xxxxx:~$）
+            "args": {
+            "gpu-memory-utilization": 0.90,
+            "disable-log-stats": true,
+            "max-model-len": 8192
+            }
+        }
+        }
+    ]
+
+
+三、通过ssh连接远程服务器进行测试的方法
+    参考config.json中的配置
+    详细参数见run_tests.py
+    可先测试连通性再进行代码性能测试
+    python demo_run_server_test.py --config config.json
+    python run_tests.py --config config.json

@@ -1,0 +1,34 @@
+# 忽略 Python 字节码缓存
+__pycache__/
+*.pyc
+
+# 忽略 JetBrains/PyCharm 配置
+.idea/
+
+# 忽略 VSCode 配置
+.vscode/
+
+# 忽略环境配置
+.env
+*.env
+
+# 忽略数据和结果
+*.log
+*.csv
+*.xlsx
+*.png
+*.jpg
+results/
+
+# 忽略json
+*.json
+
+# 忽略虚拟环境
+venv/
+.venv/
+env/
+env.bak/
+venv.bak/
+
+# 忽略数据
+run_test_API/
