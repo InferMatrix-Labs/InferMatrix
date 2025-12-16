@@ -16,7 +16,7 @@ __pycache__/
 *.log
 *.csv
 *.xlsx
-*.png
+# *.png
 *.jpg
 results/
 
