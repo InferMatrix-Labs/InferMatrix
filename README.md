@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="docs/assets/logo.svg" width="200" alt="InferMatrix Logo">
+<img src="docs/assets/logo.png" width="200" alt="InferMatrix Logo">
 
 **Systematic LLM Inference Performance Evaluation**
 
